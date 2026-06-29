@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:'Aston';src:url('uploads/aston_script/Aston Script.ttf') format('truetype');font-display:swap;}
+@font-face{font-family:'Dotfont';src:url('uploads/dotfont/Dotfont-Regular.otf') format('opentype');font-display:swap;}
+@font-face{font-family:'Groste';src:url('uploads/groste/GROSTE.ttf') format('truetype');font-display:swap;}
+@font-face{font-family:'SuperCowboy';src:url('uploads/super_cowboy/Super Cowboy.ttf') format('truetype');font-display:swap;}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+:root{--bg:#F1EAD8;--fg:#161310;--line:rgba(22,19,16,0.16);}
+html,body{margin:0;background:var(--bg);}
+html{scroll-behavior:smooth;}
+*{transition:background-color .45s ease, color .45s ease, border-color .45s ease;}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&amp;family=Bangers&amp;family=Pacifico&amp;family=Permanent+Marker&amp;family=Rozha+One&amp;family=Rubik+Bubbles&amp;family=Rye&amp;display=swap" rel="stylesheet">
+</helmet>
+
+<div data-screen-label="Hero" style="position:relative;width:100vw;height:100vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:34vh;box-sizing:border-box;overflow:hidden;">
+  {{ nav }}
+  <div style="color:var(--fg);height:clamp(150px,24vh,240px);display:flex;align-items:center;justify-content:center;">{{ nameA }}</div>
+  <div style="margin-top:24px;font-family:'Courier New',monospace;font-size:clamp(13px,1.5vw,20px);font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--fg);text-align:center;padding:0 24px;">Math and Business @ Northeastern University</div>
+  <div style="position:absolute;bottom:38px;left:50%;transform:translateX(-50%);display:flex;align-items:stretch;gap:12px;z-index:6;">
+    <button onClick="{{ onPlay }}" disabled="{{ running }}" title="Replay animation" style="display:flex;align-items:center;gap:10px;background:var(--fg);color:var(--bg);border:none;padding:11px 22px;font-family:'Courier New',monospace;font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;opacity:1;" style-hover="opacity:.85;" style-disabled="opacity:.4;cursor:default;">
+      <span style="font-size:9px;">▶</span>
+      <span>Replay</span>
+    </button>
+    <a href="#about" title="Learn more" style="display:flex;align-items:center;background:transparent;color:var(--fg);border:1px solid var(--fg);padding:11px 22px;font-family:'Courier New',monospace;font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;text-decoration:none;" style-hover="background:var(--fg);color:var(--bg);">
+      <span>Learn more</span>
+    </a>
+  </div>
+</div>
+
+<section id="about" data-screen-label="About" style="background:var(--bg);color:var(--fg);padding:120px 7vw 110px;border-top:1px solid var(--line);scroll-margin-top:62px;">
+  <div style="max-width:1060px;margin:0 auto;">
+    <div style="font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;opacity:.5;margin:0 0 16px;">01 — About</div>
+    <h2 style="font-family:'Rozha One',serif;font-weight:400;font-size:clamp(40px,6vw,82px);line-height:.98;margin:0 0 40px;font-family:{{ titleFont }};margin-top:{{ titleGap }};">Math, markets &amp; data.</h2>
+    <p style="font-family:'Courier New',monospace;font-size:clamp(16px,1.9vw,21px);line-height:1.65;max-width:760px;margin:0 0 72px;">I’m a Mathematics &amp; Business Administration student at Northeastern concentrating in Fintech — working across strategic finance, data engineering, and quantitative research to turn messy data into decisions.</p>
+
+    <div style="display:grid;grid-template-columns:290px 1fr;gap:48px;padding:36px 0;border-top:1px solid var(--line);">
+      <div style="font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;opacity:.7;">Education</div>
+      <div style="font-family:'Courier New',monospace;font-size:14px;line-height:1.7;">
+        <div style="font-family:'Rozha One',serif;font-size:26px;line-height:1.15;">Northeastern University</div>
+        <div style="margin-top:8px;opacity:.75;">D’Amore-McKim School of Business · Boston, MA</div>
+        <div style="margin-top:14px;">Candidate, BS in Mathematics &amp; Business Administration — May 2028</div>
+        <div style="margin-top:6px;">Concentration: Fintech &nbsp;·&nbsp; Minor: Data Science &nbsp;·&nbsp; GPA: 3.9</div>
+        <div style="margin-top:18px;font-size:13px;opacity:.7;letter-spacing:.04em;"><strong style="font-weight:700;">Awards &amp; Activities:</strong> Honors Program, Dean’s List, Disrupt Consulting, Generate, Association of Women in Mathematics</div>
+        <div style="margin-top:10px;font-size:13px;opacity:.7;letter-spacing:.04em;"><strong style="font-weight:700;">Relevant Courses:</strong> Probability &amp; Statistics, Stochastic Processes, Differential Equations, Linear Algebra, Mathematical Modeling, Asset Valuation, Financial Econometrics</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:290px 1fr;gap:48px;padding:36px 0;border-top:1px solid var(--line);">
+      <div style="font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;opacity:.7;">Technical Skills</div>
+      <div style="font-family:'Courier New',monospace;font-size:14px;line-height:1.7;display:grid;gap:16px;">
+        <div><div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:5px;">Programming &amp; Query</div>Python, SQL, Cypher</div>
+        <div><div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:5px;">Frameworks &amp; Libraries</div>Sklearn, NumPy, Pandas, Seaborn, FastAPI, Matplotlib</div>
+        <div><div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:5px;">Tools</div>Git, Docker, Tableau, Snowflake, Coefficient, PowerPoint, Excel</div>
+        <div><div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:5px;">Databases</div>PostgreSQL/pgvector, Neo4j, Kuzu</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:290px 1fr;gap:48px;padding:36px 0;border-top:1px solid var(--line);">
+      <div style="font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;opacity:.7;">Beyond Work</div>
+      <div style="font-family:'Courier New',monospace;font-size:14px;line-height:1.7;display:grid;gap:16px;">
+        <div><div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:5px;">Interests</div>Jazz &amp; Classical Music, Formula 1, Pottery, Guitar, Reading, Baking, Traveling</div>
+        <div><div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:5px;">Languages</div>English (Native), Mandarin (Working Proficiency)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" data-screen-label="Work" style="background:var(--bg);color:var(--fg);padding:120px 7vw 110px;border-top:1px solid var(--line);scroll-margin-top:62px;">
+  <div style="max-width:1060px;margin:0 auto;">
+    <div style="font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;opacity:.5;margin:0 0 16px;">02 — Experience</div>
+    <h2 style="font-family:'Rozha One',serif;font-weight:400;font-size:clamp(40px,6vw,82px);line-height:.98;margin:0 0 56px;font-family:{{ titleFont }};margin-top:{{ titleGap }};">Where I’ve worked.</h2>
+
+    <div style="display:grid;grid-template-columns:290px 1fr;gap:48px;padding:36px 0;border-top:1px solid var(--line);">
+      <div>
+        <div style="font-family:'Rozha One',serif;font-size:26px;line-height:1.1;">Pericles Capital</div>
+        <div style="font-family:'Courier New',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-top:12px;opacity:.72;">Incoming Quantitative Analyst</div>
+        <div style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-top:8px;opacity:.5;">Boston, MA · Sep 2026</div>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;font-family:'Courier New',monospace;font-size:14px;line-height:1.65;">
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Joining a systematic research team to study how data-center buildout affects commodity and equity prices.</span></li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:290px 1fr;gap:48px;padding:36px 0;border-top:1px solid var(--line);">
+      <div>
+        <div style="font-family:'Rozha One',serif;font-size:26px;line-height:1.1;">Klaviyo Inc.</div>
+        <div style="font-family:'Courier New',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-top:12px;opacity:.72;">Strategic Finance Analyst Co-op</div>
+        <div style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-top:8px;opacity:.5;">Boston, MA · Jan 2026 – Present</div>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;font-family:'Courier New',monospace;font-size:14px;line-height:1.65;">
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Led negotiations across marketing, GTM, R&amp;D, and G&amp;A branches on $300K+ deals for key company stakeholders.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Partnered with FP&amp;A, BI, and Security &amp; Risk stakeholders to improve and streamline vendor onboarding by 40%.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Transformed $20M in R&amp;D and IT spend data to develop a comprehensive category strategy alongside Senior VPs.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Analyzed $5B+ in contracts via SQL to prioritize sourcing and drive spend efficiency across all cost centers.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Built a savings process to quantify impact — captured $374K in savings and $5.4M in cost avoidance.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Designed and implemented 6+ procurement automations to reduce manual overhead and accelerate decision-making.</span></li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:290px 1fr;gap:48px;padding:36px 0;border-top:1px solid var(--line);">
+      <div>
+        <div style="font-family:'Rozha One',serif;font-size:26px;line-height:1.1;">Cortex</div>
+        <div style="font-family:'Courier New',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-top:12px;opacity:.72;">Data Engineer</div>
+        <div style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-top:8px;opacity:.5;">Boston, MA · Jan 2026 – Present</div>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;font-family:'Courier New',monospace;font-size:14px;line-height:1.65;">
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Executed an end-to-end data engineering pipeline designed to scale to 100+ documents across multiple file formats.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Transformed unstructured data to a standardized format for relationship extraction and knowledge graph construction.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Designed an AI-accessible graph database leveraging context engineering and Python to improve data discoverability.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Built pipelines parsing PDFs &amp; CSVs into structured JSON stored across Neo4j, S3 &amp; Supabase PostgreSQL.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Reduced retrieval overhead by 60% by improving model responses with natural-language knowledge graph search.</span></li>
+      </ul>
+    </div>
+
+    <div style="display:grid;grid-template-columns:290px 1fr;gap:48px;padding:36px 0;border-top:1px solid var(--line);">
+      <div>
+        <div style="font-family:'Rozha One',serif;font-size:26px;line-height:1.1;">Disrupt FinTech Consulting</div>
+        <div style="font-family:'Courier New',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-top:12px;opacity:.72;">Director of Consulting &amp; Strategy Lead</div>
+        <div style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-top:8px;opacity:.5;">Boston, MA · May 2025 – Present</div>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;font-family:'Courier New',monospace;font-size:14px;line-height:1.65;">
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Directed and mentored 24+ consultants and developers across 5 strategic and technical client consulting projects.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Drove client acquisition by conducting fintech market research, reaching out to 100+ fintech startup founders.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Converted leads into partnerships through strategic outreach, directing key stakeholder meetings and scoping projects.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Guided client deliverables and presented project outcomes to an audience of 80+ students and stakeholders.</span></li>
+        <li style="display:flex;gap:14px;margin-bottom:10px;"><span style="opacity:.4;">—</span><span>Led recruitment and growth strategy — expanded the consultant pipeline by 70% and scaled the org by 300%.</span></li>
+      </ul>
+    </div>
+
+    <div style="font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;opacity:.5;margin:72px 0 28px;">PROJECTS</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;">
+      <div style="border-top:2px solid var(--fg);padding-top:22px;">
+        <div style="font-family:'Rozha One',serif;font-size:23px;line-height:1.15;">Markowitz &amp; SIM Stock Analysis</div>
+        <div style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;opacity:.55;">Excel, Data Analysis ToolPak · Dec 2025</div>
+        <ul style="list-style:none;margin:18px 0 0;padding:0;font-family:'Courier New',monospace;font-size:13.5px;line-height:1.6;">
+          <li style="display:flex;gap:12px;margin-bottom:9px;"><span style="opacity:.4;">—</span><span>Computed Sharpe Ratios, CAPM regressions, and betas on daily and monthly frequencies.</span></li>
+          <li style="display:flex;gap:12px;margin-bottom:9px;"><span style="opacity:.4;">—</span><span>Built portfolios using Markowitz Mean-Variance Optimization and the Single Index Model.</span></li>
+          <li style="display:flex;gap:12px;margin-bottom:9px;"><span style="opacity:.4;">—</span><span>Constructed the efficient frontier and solved for the max-Sharpe tangency portfolio over a 5-asset universe.</span></li>
+        </ul>
+      </div>
+      <div style="border-top:2px solid var(--fg);padding-top:22px;">
+        <div style="font-family:'Rozha One',serif;font-size:23px;line-height:1.15;">Abalone Predictive Modeling</div>
+        <div style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;opacity:.55;">Python, Sklearn, Pandas · Nov 2025</div>
+        <ul style="list-style:none;margin:18px 0 0;padding:0;font-family:'Courier New',monospace;font-size:13.5px;line-height:1.6;">
+          <li style="display:flex;gap:12px;margin-bottom:9px;"><span style="opacity:.4;">—</span><span>Developed a linear regression model and KNN classifier to predict age on a 4,177-sample dataset.</span></li>
+          <li style="display:flex;gap:12px;margin-bottom:9px;"><span style="opacity:.4;">—</span><span>Standardized features and encoded the categorical sex variable for distance-based KNN modeling.</span></li>
+          <li style="display:flex;gap:12px;margin-bottom:9px;"><span style="opacity:.4;">—</span><span>Visualized performance via annotated heatmaps, regression scatter plots, and confusion matrices.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" data-screen-label="Contact" style="background:var(--bg);color:var(--fg);padding:120px 7vw 110px;border-top:1px solid var(--line);scroll-margin-top:62px;">
+  <div style="max-width:1060px;margin:0 auto;">
+    <div style="font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;opacity:.5;margin:0 0 16px;">03 — Contact</div>
+    <h2 style="font-family:'Rozha One',serif;font-weight:400;font-size:clamp(40px,6vw,82px);line-height:.98;margin:0 0 56px;font-family:{{ titleFont }};margin-top:{{ titleGap }};">Let’s talk.</h2>
+    <div style="display:grid;gap:0;">
+      <a href="mailto:kwan.che@northeastern.edu" style="display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);font-family:'Rozha One',serif;font-size:clamp(22px,3vw,34px);" style-hover="opacity:.6;">
+        <span>kwan.che@northeastern.edu</span><span style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.5;">Email</span>
+      </a>
+      
+      <a href="https://linkedin.com/in/chelseagkwan/" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--fg);font-family:'Rozha One',serif;font-size:clamp(22px,3vw,34px);" style-hover="opacity:.6;">
+        <span>linkedin.com/in/chelseagkwan</span><span style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.5;">LinkedIn</span>
+      </a>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-family:'Rozha One',serif;font-size:clamp(22px,3vw,34px);">
+        <span>Boston, MA</span><span style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.5;">Location</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resume" data-screen-label="Resume" style="background:var(--fg);color:var(--bg);padding:120px 7vw 130px;scroll-margin-top:62px;">
+  <div style="max-width:1060px;margin:0 auto;">
+    <div style="font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;opacity:.5;margin:0 0 16px;">04 — Résumé</div>
+    <h2 style="font-family:'Rozha One',serif;font-weight:400;font-size:clamp(40px,6vw,82px);line-height:.98;margin:0 0 32px;font-family:{{ titleFont }};margin-top:{{ titleGap }};">The full resume.</h2>
+    <p style="font-family:'Courier New',monospace;font-size:clamp(15px,1.8vw,19px);line-height:1.65;max-width:640px;margin:0 0 48px;opacity:.85;">One page. Education, experience, projects, and skills — download the PDF.</p>
+    <a href="uploads/resume.pdf" target="_blank" rel="noopener" download="Chelsea Kwan Resume.pdf" style="display:inline-flex;align-items:center;gap:12px;background:var(--bg);color:var(--fg);border:none;padding:16px 30px;font-family:'Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;text-decoration:none;" style-hover="opacity:.85;">
+      <span style="font-size:13px;">↓</span><span>Download PDF</span>
+    </a>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { step: 0, running: false, hoveredTab: null };
+  FONTS = ['Aston','Dotfont','SuperCowboy','Permanent Marker','Bangers','Bagel Fat One','Rye','Rozha One','Courier New'];
+  THEMES = {
+    'Aston':            { bg:'#141B33', fg:'#EDE3CE' }, // ink navy / warm cream
+    'Dotfont':          { bg:'#0C120D', fg:'#86F08A' }, // terminal green on black
+    'SuperCowboy':      { bg:'#3A1E10', fg:'#F2D199' }, // saddle brown / tan
+    'Permanent Marker': { bg:'#FBFBF7', fg:'#15151A' }, // marker on paper
+    'Bangers':          { bg:'#FFD400', fg:'#1A1A1A' }, // comic pop yellow/black
+    'Bagel Fat One':    { bg:'#FFDCEB', fg:'#7A2E63' }, // bubblegum pink
+    'Rye':              { bg:'#241309', fg:'#E4BE82' }, // dark wood / gold
+    'Rozha One':        { bg:'#10271F', fg:'#F0E7D6' }, // deep editorial green
+    'Courier New':      { bg:'#F1EAD8', fg:'#161310' }  // DEFAULT cream / black typewriter
+  };
+  hexToRgba(hex, a){
+    const h = hex.replace('#',''); const x = h.length === 3 ? h.split('').map(c=>c+c).join('') : h;
+    const r = parseInt(x.slice(0,2),16), g = parseInt(x.slice(2,4),16), b = parseInt(x.slice(4,6),16);
+    return 'rgba('+r+','+g+','+b+','+a+')';
+  }
+  currentFont(){ const n = this.FONTS.length; return this.FONTS[((this.state.step % n) + n) % n]; }
+  applyTheme(){
+    // only recolor when the cycle has settled (or on a single click) — never mid-flip
+    if (this.state.running) return;
+    const t = this.THEMES[this.currentFont()] || this.THEMES['Courier New'];
+    const root = document.documentElement.style;
+    root.setProperty('--bg', t.bg);
+    root.setProperty('--fg', t.fg);
+    root.setProperty('--line', this.hexToRgba(t.fg, 0.16));
+  }
+  startAnim = (targetIdx = 8, cycles = 4) => {
+    const n = 9, MAX = n * cycles + ((targetIdx % n) + n) % n; // `cycles`+ full loops, landing on targetIdx
+    if (this._iv) clearInterval(this._iv);
+    this.setState({ step: 0, running: true }, () => {
+      this._iv = setInterval(() => this.setState(s => {
+        if (s.step >= MAX){ clearInterval(this._iv); this._iv = null; return { running: false }; }
+        return { step: s.step + 1 };
+      }), 77);
+    });
+  };
+  randomCycle = () => { this.startAnim(Math.floor(Math.random() * 9), 2); };
+  titleClick = () => {
+    // defer so a double-click can cancel the single-click action
+    if (this._clickT) return;
+    this._clickT = setTimeout(() => {
+      this._clickT = null;
+      if (this._iv){ clearInterval(this._iv); this._iv = null; }
+      this.setState(s => ({ step: s.step + 1, running: false }));
+    }, 220);
+  };
+  titleDblClick = () => {
+    if (this._clickT){ clearTimeout(this._clickT); this._clickT = null; }
+    this.randomCycle();
+  };
+  componentDidMount(){ this.startAnim(); }
+  componentDidUpdate(){ this.applyTheme(); }
+  componentWillUnmount(){ if (this._iv) clearInterval(this._iv); }
+
+  buildNav(){
+    const tabs = ['About', 'Work', 'Contact', 'R\u00e9sum\u00e9'];
+    const H = 16;
+    const ease = 'transform .46s cubic-bezier(.76,0,.24,1)';
+    const items = tabs.map((label, i) => {
+      const hov = this.state.hoveredTab === i;
+      const labelStyle = { height: H + 'px', display: 'flex', alignItems: 'center', fontFamily: '"Courier New", monospace', fontSize: '12px', fontWeight: 700, letterSpacing: '.22em', textTransform: 'uppercase', whiteSpace: 'nowrap' };
+      return React.createElement('a', {
+        key: i,
+        href: '#' + label.toLowerCase().normalize('NFD').replace(/[^a-z]/g, ''),
+        onMouseEnter: () => this.setState({ hoveredTab: i }),
+        onMouseLeave: () => this.setState({ hoveredTab: null }),
+        style: { position: 'relative', overflow: 'hidden', cursor: 'pointer', display: 'flex', alignItems: 'center', borderLeft: '1px solid var(--line)', textDecoration: 'none' }
+      },
+        React.createElement('div', { style: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, background: 'var(--fg)', transform: hov ? 'translateY(0)' : 'translateY(101%)', transition: ease } }),
+        React.createElement('div', { style: { position: 'relative', zIndex: 1, padding: '0 26px' } },
+          React.createElement('div', { style: { height: H + 'px', overflow: 'hidden' } },
+            React.createElement('div', { style: { transform: hov ? ('translateY(-' + H + 'px)') : 'translateY(0)', transition: ease } },
+              React.createElement('div', { style: Object.assign({ color: 'var(--fg)' }, labelStyle) }, label),
+              React.createElement('div', { style: Object.assign({ color: 'var(--bg)' }, labelStyle) }, label)
+            )
+          )
+        )
+      );
+    });
+    return React.createElement('div', { style: {
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      height: '62px', paddingLeft: '34px',
+      background: 'var(--bg)',
+      borderBottom: '1px solid var(--line)'
+    } },
+      React.createElement('div', { style: { fontFamily: '"Courier New", monospace', fontSize: '14px', fontWeight: 700, letterSpacing: '.34em', color: 'var(--fg)' } }, 'CK.'),
+      React.createElement('div', { style: { display: 'flex', alignItems: 'stretch', alignSelf: 'stretch', borderLeft: '1px solid var(--line)' } }, items)
+    );
+  }
+
+  renderVals(){
+    const fonts = this.FONTS;
+    const n = fonts.length;
+    const idx = ((this.state.step % n) + n) % n;
+    const font = fonts[idx];
+    const letters = 'Chelsea Kwan'.split('').map((ch, i) => {
+      if (ch === ' ') return React.createElement('span', { key: i, style: { display: 'inline-block', width: '0.34em' } }, '\u00A0');
+      return React.createElement('span', { key: i, style: {
+        display: 'inline-block',
+        fontFamily: '"' + font + '", "Arial Black", sans-serif',
+        fontWeight: font === 'Courier New' ? 700 : 'normal'
+      } }, ch);
+    });
+    const nameA = React.createElement('div', {
+      onClick: this.titleClick,
+      onDoubleClick: this.titleDblClick,
+      title: 'Click to change font · double-click to shuffle',
+      style: {
+        fontSize: 'clamp(48px, 8.1vw, 128px)',
+        letterSpacing: '-0.005em',
+        whiteSpace: 'nowrap',
+        padding: '0 32px',
+        cursor: 'pointer',
+        userSelect: 'none'
+      }
+    }, letters);
+    return {
+      nameA,
+      nav: this.buildNav(),
+      running: this.state.running,
+      onPlay: this.startAnim,
+      titleFont: '"' + font + '", "Arial Black", serif',
+      titleGap: font === 'Aston' ? '0.85em' : '0'
+    };
+  }
+}
+</script>
+</body>
+</html>

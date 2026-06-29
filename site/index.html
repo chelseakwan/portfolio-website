@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chelsea Kwan — Math & Business @ Northeastern</title>
+<meta name="description" content="Chelsea Kwan — Mathematics & Business Administration student at Northeastern concentrating in Fintech. Strategic finance, data engineering, and quantitative research.">
+<meta name="author" content="Chelsea Kwan">
+<meta property="og:title" content="Chelsea Kwan">
+<meta property="og:description" content="Math, markets & data. Mathematics & Business @ Northeastern University.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Bangers&family=Pacifico&family=Permanent+Marker&family=Rozha+One&family=Rubik+Bubbles&family=Rye&display=swap" rel="stylesheet">
+
+<style>
+  @font-face{font-family:'Aston';src:url('assets/fonts/AstonScript.ttf') format('truetype');font-display:swap;}
+  @font-face{font-family:'Dotfont';src:url('assets/fonts/Dotfont-Regular.otf') format('opentype');font-display:swap;}
+  @font-face{font-family:'SuperCowboy';src:url('assets/fonts/SuperCowboy.ttf') format('truetype');font-display:swap;}
+
+  :root{
+    --bg:#F1EAD8;
+    --fg:#161310;
+    --line:rgba(22,19,16,0.16);
+    --mono:'Courier New', ui-monospace, monospace;
+    --serif:'Rozha One', serif;
+    --title-font:'Rozha One', "Arial Black", serif;
+    --title-gap:0;
+  }
+
+  *{box-sizing:border-box;}
+  *{transition:background-color .45s ease, color .45s ease, border-color .45s ease;}
+  html{scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);}
+  body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  a{color:inherit;}
+
+  /* respect reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    height:62px; padding-left:34px;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .nav__brand{
+    font-family:var(--mono); font-size:14px; font-weight:700;
+    letter-spacing:.34em; color:var(--fg); text-decoration:none;
+  }
+  .nav__tabs{
+    display:flex; align-items:stretch; align-self:stretch;
+    border-left:1px solid var(--line);
+  }
+  .tab{
+    position:relative; overflow:hidden; display:flex; align-items:center;
+    border-left:1px solid var(--line); text-decoration:none; cursor:pointer;
+  }
+  .tab__fill{
+    position:absolute; inset:0; background:var(--fg);
+    transform:translateY(101%);
+    transition:transform .46s cubic-bezier(.76,0,.24,1);
+  }
+  .tab:hover .tab__fill, .tab:focus-visible .tab__fill{ transform:translateY(0); }
+  .tab__inner{ position:relative; z-index:1; padding:0 26px; }
+  .tab__roll{ height:16px; overflow:hidden; }
+  .tab__slide{
+    transform:translateY(0);
+    transition:transform .46s cubic-bezier(.76,0,.24,1);
+  }
+  .tab:hover .tab__slide, .tab:focus-visible .tab__slide{ transform:translateY(-16px); }
+  .tab__label{
+    height:16px; display:flex; align-items:center;
+    font-family:var(--mono); font-size:12px; font-weight:700;
+    letter-spacing:.22em; text-transform:uppercase; white-space:nowrap;
+  }
+  .tab__label--front{ color:var(--fg); }
+  .tab__label--back{ color:var(--bg); }
+  .tab:focus-visible{ outline:2px solid var(--fg); outline-offset:-2px; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; width:100vw; height:100vh; min-height:100dvh;
+    background:var(--bg);
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    padding-top:34vh; overflow:hidden;
+  }
+  .hero__name{
+    color:var(--fg);
+    height:clamp(150px,24vh,240px);
+    display:flex; align-items:center; justify-content:center;
+    margin-top:var(--title-gap);
+  }
+  #name{
+    font-size:clamp(48px,8.1vw,128px);
+    letter-spacing:-0.005em; white-space:nowrap;
+    padding:0 32px; cursor:pointer; user-select:none;
+    background:none; border:none; color:inherit; line-height:1;
+  }
+  #name .ltr{ display:inline-block; }
+  #name .spc{ display:inline-block; width:0.34em; }
+  .hero__subtitle{
+    margin-top:24px; font-family:var(--mono);
+    font-size:clamp(13px,1.5vw,20px); font-weight:700;
+    letter-spacing:.34em; text-transform:uppercase;
+    color:var(--fg); text-align:center; padding:0 24px;
+  }
+  .hero__cta{
+    position:absolute; bottom:38px; left:50%; transform:translateX(-50%);
+    display:flex; align-items:stretch; gap:12px; z-index:6;
+  }
+  .btn{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:11px; font-weight:700;
+    letter-spacing:.28em; text-transform:uppercase; cursor:pointer;
+    padding:11px 22px; text-decoration:none; border:none;
+  }
+  .btn--solid{ background:var(--fg); color:var(--bg); }
+  .btn--solid:hover{ opacity:.85; }
+  .btn--solid:disabled{ opacity:.4; cursor:default; }
+  .btn--ghost{ background:transparent; color:var(--fg); border:1px solid var(--fg); }
+  .btn--ghost:hover{ background:var(--fg); color:var(--bg); }
+  .btn:focus-visible{ outline:2px solid var(--fg); outline-offset:3px; }
+
+  /* ---------- SECTIONS ---------- */
+  section{ scroll-margin-top:62px; }
+  .section{ background:var(--bg); color:var(--fg); padding:120px 7vw 110px; border-top:1px solid var(--line); }
+  .section--invert{ background:var(--fg); color:var(--bg); border-top:none; padding:120px 7vw 130px; }
+  .wrap{ max-width:1060px; margin:0 auto; }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; font-weight:700;
+    letter-spacing:.32em; text-transform:uppercase; opacity:.5; margin:0 0 16px;
+  }
+  .h2{
+    font-family:var(--title-font); font-weight:400;
+    font-size:clamp(40px,6vw,82px); line-height:.98;
+    margin:var(--title-gap) 0 40px;
+  }
+  .lead{
+    font-family:var(--mono); font-size:clamp(16px,1.9vw,21px);
+    line-height:1.65; max-width:760px; margin:0 0 72px;
+  }
+
+  .row{
+    display:grid; grid-template-columns:290px 1fr; gap:48px;
+    padding:36px 0; border-top:1px solid var(--line);
+  }
+  .row__label{
+    font-family:var(--mono); font-size:12px; font-weight:700;
+    letter-spacing:.28em; text-transform:uppercase; opacity:.7;
+  }
+  .row__body{ font-family:var(--mono); font-size:14px; line-height:1.7; }
+  .stack{ display:grid; gap:16px; }
+  .serif-lg{ font-family:var(--serif); font-size:26px; line-height:1.15; }
+  .meta-role{ font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin-top:12px; opacity:.72; }
+  .meta-place{ font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; margin-top:8px; opacity:.5; }
+  .sub{ font-size:11px; letter-spacing:.18em; text-transform:uppercase; opacity:.5; margin-bottom:5px; }
+
+  .bullets{ list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:14px; line-height:1.65; }
+  .bullets li{ display:flex; gap:14px; margin-bottom:10px; }
+  .bullets .dash{ opacity:.4; }
+
+  .proj-head{
+    font-family:var(--mono); font-size:12px; font-weight:700;
+    letter-spacing:.32em; text-transform:uppercase; opacity:.5; margin:72px 0 28px;
+  }
+  .projects{ display:grid; grid-template-columns:1fr 1fr; gap:36px; }
+  .project{ border-top:2px solid var(--fg); padding-top:22px; }
+  .project__title{ font-family:var(--serif); font-size:23px; line-height:1.15; }
+  .project__meta{ font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; margin-top:10px; opacity:.55; }
+  .project .bullets{ font-size:13.5px; line-height:1.6; margin-top:18px; }
+  .project .bullets li{ gap:12px; margin-bottom:9px; }
+
+  /* contact links */
+  .contact-link{
+    display:flex; justify-content:space-between; align-items:center; gap:20px;
+    padding:26px 0; border-top:1px solid var(--line); text-decoration:none;
+    color:var(--fg); font-family:var(--serif); font-size:clamp(22px,3vw,34px);
+  }
+  .contact-link:hover{ opacity:.6; }
+  .contact-link:last-of-type, .contact-link--static{ border-bottom:1px solid var(--line); }
+  .contact-tag{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; opacity:.5; }
+
+  .resume-lead{ font-family:var(--mono); font-size:clamp(15px,1.8vw,19px); line-height:1.65; max-width:640px; margin:0 0 48px; opacity:.85; }
+  .resume-h2{ margin-bottom:32px; }
+  .btn--download{ display:inline-flex; background:var(--bg); color:var(--fg); padding:16px 30px; font-size:12px; }
+  .btn--download:hover{ opacity:.85; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:760px){
+    .nav__brand{ padding-left:0; }
+    .nav{ padding-left:20px; }
+    .tab__inner{ padding:0 16px; }
+    .tab__label{ font-size:10px; letter-spacing:.14em; }
+    .hero{ padding-top:30vh; }
+    .section{ padding:84px 24px 72px; }
+    .section--invert{ padding:84px 24px 90px; }
+    .row{ grid-template-columns:1fr; gap:18px; padding:28px 0; }
+    .projects{ grid-template-columns:1fr; gap:28px; }
+    .lead{ margin-bottom:48px; }
+    .contact-link{ font-size:clamp(18px,6vw,26px); }
+    .contact-tag{ display:none; }
+  }
+  @media (max-width:420px){
+    .nav__tabs .tab:nth-child(3){ display:none; } /* hide Contact label on tiny screens; still reachable via scroll */
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" aria-label="Primary">
+  <a href="#top" class="nav__brand" aria-label="Chelsea Kwan — home">CK.</a>
+  <div class="nav__tabs" id="navTabs"></div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header id="top" class="hero" data-screen-label="Hero">
+  <div class="hero__name">
+    <div id="name" role="button" tabindex="0"
+         title="Click to change font · double-click to shuffle"
+         aria-label="Chelsea Kwan"></div>
+  </div>
+  <div class="hero__subtitle">Math and Business @ Northeastern University</div>
+  <div class="hero__cta">
+    <button id="replay" class="btn btn--solid" title="Replay animation">
+      <span style="font-size:9px;">▶</span><span>Replay</span>
+    </button>
+    <a href="#about" class="btn btn--ghost" title="Learn more"><span>Learn more</span></a>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="section" data-screen-label="About">
+  <div class="wrap">
+    <div class="eyebrow">01 — About</div>
+    <h2 class="h2">Math, markets &amp; data.</h2>
+    <p class="lead">I’m a Mathematics &amp; Business Administration student at Northeastern concentrating in Fintech — working across strategic finance, data engineering, and quantitative research to turn messy data into decisions.</p>
+
+    <div class="row">
+      <div class="row__label">Education</div>
+      <div class="row__body">
+        <div class="serif-lg">Northeastern University</div>
+        <div style="margin-top:8px;opacity:.75;">D’Amore-McKim School of Business · Boston, MA</div>
+        <div style="margin-top:14px;">Candidate, BS in Mathematics &amp; Business Administration — May 2028</div>
+        <div style="margin-top:6px;">Concentration: Fintech &nbsp;·&nbsp; Minor: Data Science &nbsp;·&nbsp; GPA: 3.9</div>
+        <div style="margin-top:18px;font-size:13px;opacity:.7;letter-spacing:.04em;"><strong>Awards &amp; Activities:</strong> Honors Program, Dean’s List, Disrupt Consulting, Generate, Association of Women in Mathematics</div>
+        <div style="margin-top:10px;font-size:13px;opacity:.7;letter-spacing:.04em;"><strong>Relevant Courses:</strong> Probability &amp; Statistics, Stochastic Processes, Differential Equations, Linear Algebra, Mathematical Modeling, Asset Valuation, Financial Econometrics</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row__label">Technical Skills</div>
+      <div class="row__body stack">
+        <div><div class="sub">Programming &amp; Query</div>Python, SQL, Cypher</div>
+        <div><div class="sub">Frameworks &amp; Libraries</div>Sklearn, NumPy, Pandas, Seaborn, FastAPI, Matplotlib</div>
+        <div><div class="sub">Tools</div>Git, Docker, Tableau, Snowflake, Coefficient, PowerPoint, Excel</div>
+        <div><div class="sub">Databases</div>PostgreSQL/pgvector, Neo4j, Kuzu</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row__label">Beyond Work</div>
+      <div class="row__body stack">
+        <div><div class="sub">Interests</div>Jazz &amp; Classical Music, Formula 1, Pottery, Guitar, Reading, Baking, Traveling</div>
+        <div><div class="sub">Languages</div>English (Native), Mandarin (Working Proficiency)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section id="work" class="section" data-screen-label="Work">
+  <div class="wrap">
+    <div class="eyebrow">02 — Experience</div>
+    <h2 class="h2">Where I’ve worked.</h2>
+
+    <div class="row">
+      <div>
+        <div class="serif-lg">Pericles Capital</div>
+        <div class="meta-role">Incoming Quantitative Analyst</div>
+        <div class="meta-place">Boston, MA · Sep 2026</div>
+      </div>
+      <ul class="bullets">
+        <li><span class="dash">—</span><span>Joining a systematic research team to study how data-center buildout affects commodity and equity prices.</span></li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="serif-lg">Klaviyo Inc.</div>
+        <div class="meta-role">Strategic Finance Analyst Co-op</div>
+        <div class="meta-place">Boston, MA · Jan 2026 – Present</div>
+      </div>
+      <ul class="bullets">
+        <li><span class="dash">—</span><span>Led negotiations across marketing, GTM, R&amp;D, and G&amp;A branches on $300K+ deals for key company stakeholders.</span></li>
+        <li><span class="dash">—</span><span>Partnered with FP&amp;A, BI, and Security &amp; Risk stakeholders to improve and streamline vendor onboarding by 40%.</span></li>
+        <li><span class="dash">—</span><span>Transformed $20M in R&amp;D and IT spend data to develop a comprehensive category strategy alongside Senior VPs.</span></li>
+        <li><span class="dash">—</span><span>Analyzed $5B+ in contracts via SQL to prioritize sourcing and drive spend efficiency across all cost centers.</span></li>
+        <li><span class="dash">—</span><span>Built a savings process to quantify impact — captured $374K in savings and $5.4M in cost avoidance.</span></li>
+        <li><span class="dash">—</span><span>Designed and implemented 6+ procurement automations to reduce manual overhead and accelerate decision-making.</span></li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="serif-lg">Cortex</div>
+        <div class="meta-role">Data Engineer</div>
+        <div class="meta-place">Boston, MA · Jan 2026 – Present</div>
+      </div>
+      <ul class="bullets">
+        <li><span class="dash">—</span><span>Executed an end-to-end data engineering pipeline designed to scale to 100+ documents across multiple file formats.</span></li>
+        <li><span class="dash">—</span><span>Transformed unstructured data to a standardized format for relationship extraction and knowledge graph construction.</span></li>
+        <li><span class="dash">—</span><span>Designed an AI-accessible graph database leveraging context engineering and Python to improve data discoverability.</span></li>
+        <li><span class="dash">—</span><span>Built pipelines parsing PDFs &amp; CSVs into structured JSON stored across Neo4j, S3 &amp; Supabase PostgreSQL.</span></li>
+        <li><span class="dash">—</span><span>Reduced retrieval overhead by 60% by improving model responses with natural-language knowledge graph search.</span></li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="serif-lg">Disrupt FinTech Consulting</div>
+        <div class="meta-role">Director of Consulting &amp; Strategy Lead</div>
+        <div class="meta-place">Boston, MA · May 2025 – Present</div>
+      </div>
+      <ul class="bullets">
+        <li><span class="dash">—</span><span>Directed and mentored 24+ consultants and developers across 5 strategic and technical client consulting projects.</span></li>
+        <li><span class="dash">—</span><span>Drove client acquisition by conducting fintech market research, reaching out to 100+ fintech startup founders.</span></li>
+        <li><span class="dash">—</span><span>Converted leads into partnerships through strategic outreach, directing key stakeholder meetings and scoping projects.</span></li>
+        <li><span class="dash">—</span><span>Guided client deliverables and presented project outcomes to an audience of 80+ students and stakeholders.</span></li>
+        <li><span class="dash">—</span><span>Led recruitment and growth strategy — expanded the consultant pipeline by 70% and scaled the org by 300%.</span></li>
+      </ul>
+    </div>
+
+    <div class="proj-head">PROJECTS</div>
+    <div class="projects">
+      <div class="project">
+        <div class="project__title">Markowitz &amp; SIM Stock Analysis</div>
+        <div class="project__meta">Excel, Data Analysis ToolPak · Dec 2025</div>
+        <ul class="bullets">
+          <li><span class="dash">—</span><span>Computed Sharpe Ratios, CAPM regressions, and betas on daily and monthly frequencies.</span></li>
+          <li><span class="dash">—</span><span>Built portfolios using Markowitz Mean-Variance Optimization and the Single Index Model.</span></li>
+          <li><span class="dash">—</span><span>Constructed the efficient frontier and solved for the max-Sharpe tangency portfolio over a 5-asset universe.</span></li>
+        </ul>
+      </div>
+      <div class="project">
+        <div class="project__title">Abalone Predictive Modeling</div>
+        <div class="project__meta">Python, Sklearn, Pandas · Nov 2025</div>
+        <ul class="bullets">
+          <li><span class="dash">—</span><span>Developed a linear regression model and KNN classifier to predict age on a 4,177-sample dataset.</span></li>
+          <li><span class="dash">—</span><span>Standardized features and encoded the categorical sex variable for distance-based KNN modeling.</span></li>
+          <li><span class="dash">—</span><span>Visualized performance via annotated heatmaps, regression scatter plots, and confusion matrices.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="section" data-screen-label="Contact">
+  <div class="wrap">
+    <div class="eyebrow">03 — Contact</div>
+    <h2 class="h2">Let’s talk.</h2>
+    <div>
+      <a class="contact-link" href="mailto:kwan.che@northeastern.edu">
+        <span>kwan.che@northeastern.edu</span><span class="contact-tag">Email</span>
+      </a>
+      <a class="contact-link" href="https://linkedin.com/in/chelseagkwan/" target="_blank" rel="noopener">
+        <span>linkedin.com/in/chelseagkwan</span><span class="contact-tag">LinkedIn</span>
+      </a>
+      <div class="contact-link contact-link--static">
+        <span>Boston, MA</span><span class="contact-tag">Location</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESUME ============ -->
+<section id="resume" class="section--invert" data-screen-label="Resume">
+  <div class="wrap">
+    <div class="eyebrow">04 — Résumé</div>
+    <h2 class="h2 resume-h2">The full resume.</h2>
+    <p class="resume-lead">One page. Education, experience, projects, and skills — download the PDF.</p>
+    <a class="btn btn--download" href="assets/resume.pdf" target="_blank" rel="noopener" download="Chelsea Kwan Resume.pdf">
+      <span style="font-size:13px;">↓</span><span>Download PDF</span>
+    </a>
+  </div>
+</section>
+
+<script>
+(function(){
+  "use strict";
+
+  // ----- Fonts & per-font themes (ported from the dc prototype) -----
+  var FONTS = ['Aston','Dotfont','SuperCowboy','Permanent Marker','Bangers','Bagel Fat One','Rye','Rozha One','Courier New'];
+  var THEMES = {
+    'Aston':            { bg:'#141B33', fg:'#EDE3CE' }, // ink navy / warm cream
+    'Dotfont':          { bg:'#0C120D', fg:'#86F08A' }, // terminal green on black
+    'SuperCowboy':      { bg:'#3A1E10', fg:'#F2D199' }, // saddle brown / tan
+    'Permanent Marker': { bg:'#FBFBF7', fg:'#15151A' }, // marker on paper
+    'Bangers':          { bg:'#FFD400', fg:'#1A1A1A' }, // comic pop yellow/black
+    'Bagel Fat One':    { bg:'#FFDCEB', fg:'#7A2E63' }, // bubblegum pink
+    'Rye':              { bg:'#241309', fg:'#E4BE82' }, // dark wood / gold
+    'Rozha One':        { bg:'#10271F', fg:'#F0E7D6' }, // deep editorial green
+    'Courier New':      { bg:'#F1EAD8', fg:'#161310' }  // DEFAULT cream / black typewriter
+  };
+
+  var nameEl   = document.getElementById('name');
+  var replayEl = document.getElementById('replay');
+  var rootStyle = document.documentElement.style;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var step = 0;       // current index into the (mod 9) font cycle
+  var running = false;
+  var iv = null;
+  var clickTimer = null;
+
+  function mod(n, m){ return ((n % m) + m) % m; }
+  function currentFont(){ return FONTS[mod(step, FONTS.length)]; }
+
+  function hexToRgba(hex, a){
+    var h = hex.replace('#','');
+    var x = h.length === 3 ? h.split('').map(function(c){return c+c;}).join('') : h;
+    var r = parseInt(x.slice(0,2),16), g = parseInt(x.slice(2,4),16), b = parseInt(x.slice(4,6),16);
+    return 'rgba('+r+','+g+','+b+','+a+')';
+  }
+
+  // render "Chelsea Kwan" letter-by-letter in the active font
+  function renderName(){
+    var font = currentFont();
+    var fam = '"' + font + '", "Arial Black", sans-serif';
+    var weight = font === 'Courier New' ? '700' : 'normal';
+    var frag = document.createDocumentFragment();
+    'Chelsea Kwan'.split('').forEach(function(ch){
+      var span = document.createElement('span');
+      if (ch === ' '){
+        span.className = 'spc';
+        span.innerHTML = '&nbsp;';
+      } else {
+        span.className = 'ltr';
+        span.textContent = ch;
+        span.style.fontFamily = fam;
+        span.style.fontWeight = weight;
+      }
+      frag.appendChild(span);
+    });
+    nameEl.innerHTML = '';
+    nameEl.appendChild(frag);
+
+    // section headings + hero name gap track the active font (titleFont / titleGap)
+    rootStyle.setProperty('--title-font', '"' + font + '", "Arial Black", serif');
+    rootStyle.setProperty('--title-gap', font === 'Aston' ? '0.85em' : '0');
+  }
+
+  // recolor only when the cycle has settled — never mid-flip
+  function applyTheme(){
+    if (running) return;
+    var t = THEMES[currentFont()] || THEMES['Courier New'];
+    rootStyle.setProperty('--bg', t.bg);
+    rootStyle.setProperty('--fg', t.fg);
+    rootStyle.setProperty('--line', hexToRgba(t.fg, 0.16));
+  }
+
+  function commit(){ renderName(); applyTheme(); }
+
+  // spin the font reel, landing on targetIdx after `cycles` full loops
+  function startAnim(targetIdx, cycles){
+    if (typeof targetIdx !== 'number') targetIdx = 8; // default lands on Courier New
+    if (typeof cycles !== 'number') cycles = 4;
+    var n = FONTS.length;
+    var MAX = n * cycles + mod(targetIdx, n);
+
+    if (iv) { clearInterval(iv); iv = null; }
+
+    if (reduceMotion){ // honor reduced-motion: jump straight to the target
+      step = targetIdx; running = false;
+      replayEl.disabled = false;
+      commit();
+      return;
+    }
+
+    step = 0; running = true; replayEl.disabled = true;
+    renderName();
+    iv = setInterval(function(){
+      if (step >= MAX){
+        clearInterval(iv); iv = null;
+        running = false; replayEl.disabled = false;
+        applyTheme();
+        return;
+      }
+      step += 1;
+      renderName();
+    }, 77);
+  }
+
+  function randomCycle(){ startAnim(Math.floor(Math.random() * FONTS.length), 2); }
+
+  // single click → advance one font; deferred so a double-click can cancel it
+  function onNameClick(){
+    if (clickTimer) return;
+    clickTimer = setTimeout(function(){
+      clickTimer = null;
+      if (iv){ clearInterval(iv); iv = null; }
+      running = false; replayEl.disabled = false;
+      step += 1;
+      commit();
+    }, 220);
+  }
+  function onNameDblClick(){
+    if (clickTimer){ clearTimeout(clickTimer); clickTimer = null; }
+    randomCycle();
+  }
+
+  nameEl.addEventListener('click', onNameClick);
+  nameEl.addEventListener('dblclick', onNameDblClick);
+  nameEl.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); onNameClick(); }
+  });
+  replayEl.addEventListener('click', function(){ startAnim(8, 4); });
+
+  // ----- Nav tabs with the slide-up reveal -----
+  (function buildNav(){
+    var tabs = [
+      { label:'About',   href:'#about' },
+      { label:'Work',    href:'#work' },
+      { label:'Contact', href:'#contact' },
+      { label:'Résumé',  href:'#resume' }
+    ];
+    var host = document.getElementById('navTabs');
+    tabs.forEach(function(t){
+      var a = document.createElement('a');
+      a.className = 'tab';
+      a.href = t.href;
+      a.innerHTML =
+        '<div class="tab__fill"></div>' +
+        '<div class="tab__inner"><div class="tab__roll"><div class="tab__slide">' +
+          '<div class="tab__label tab__label--front">' + t.label + '</div>' +
+          '<div class="tab__label tab__label--back">'  + t.label + '</div>' +
+        '</div></div></div>';
+      host.appendChild(a);
+    });
+  })();
+
+  // ----- Boot -----
+  commit();
+  startAnim(8, 4); // mount animation, same as the prototype's componentDidMount
+})();
+</script>
+</body>
+</html>
