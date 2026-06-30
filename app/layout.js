@@ -2,7 +2,6 @@ import "./globals.css";
 import { fontVariables } from "@/lib/fonts";
 import site from "@/lib/site";
 import Nav from "@/components/Nav";
-import { THEME_BOOT_SCRIPT } from "@/lib/theme";
 
 export const metadata = {
   metadataBase: new URL(site.url),
@@ -34,7 +33,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={fontVariables}>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
         <a href="#main" className="skip-link">
           Skip to content
         </a>

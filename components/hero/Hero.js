@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import profile from "@/content/profile";
 import { FONTS, FONT_FAMILY, DEFAULT_INDEX } from "@/components/hero/themes";
-import { applyTheme, readStoredFont } from "@/lib/theme";
+import { applyTheme, sessionFont } from "@/lib/theme";
 
 const NAME = "Chelsea Kwan";
 const TICK_MS = 77; // advance one font roughly every 77ms (PRD §4.1)
@@ -58,16 +58,16 @@ export default function Hero() {
       font === "Aston" ? "0.85em" : "0"
     );
     // Do nothing to the page theme until the mount effect has synced `step` to
-    // the visitor's stored font. Until then `step` is still DEFAULT_INDEX
-    // (Courier) while THEME_BOOT_SCRIPT has ALREADY restored the last-settled
-    // theme on <html>; calling applyTheme now would clobber that back to the
-    // cream/black default AND overwrite the stored font in localStorage.
+    // the font active this session. Until then `step` is still DEFAULT_INDEX
+    // (Courier); on a fresh load that's already the cream default, but after
+    // in-app navigation the session may hold a different font, so we wait to
+    // avoid flashing cream before re-applying the active theme.
     //
     // This guard is intentionally driven by STATE (`synced`), not a ref. React
     // StrictMode double-invokes effects on mount (setup → cleanup → setup), and
     // a ref's mutation persists across that double-invoke — so a ref-based
     // "first run" guard lets the second setup fall through and apply the default
-    // theme (which then gets read back as the stored font, settling the whole
+    // theme (which then gets read back as the active font, settling the whole
     // site on cream/black for good). `synced` only flips true on a committed
     // render, so every StrictMode re-run before the sync correctly skips, and
     // applyTheme never fires for the transient default step.
@@ -138,10 +138,11 @@ export default function Hero() {
   );
 
   // Mount: detect reduced motion, then either play the entrance reel (first
-  // landing this session) or land STATICALLY on the visitor's last-settled
-  // font/theme. Either way the spin settles on the stored font, so the page
-  // theme the boot script already restored is preserved. Returning home via the
-  // "CK." logo no longer reshuffles the wordmark once the intro has played.
+  // landing this session) or land STATICALLY on the font active this session.
+  // On a fresh load that's the cream default; after in-app navigation it's
+  // whatever the visitor last cycled to, so the active theme is preserved.
+  // Returning home via the "CK." logo no longer reshuffles the wordmark once
+  // the intro has played.
   // Manual controls still animate on demand: click advances a font,
   // double-click shuffles, and Replay re-spins.
   // On unmount, clear timers and reset only the hero-specific vertical gap.
@@ -149,8 +150,8 @@ export default function Hero() {
     reducedRef.current = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const storedIdx = FONTS.indexOf(readStoredFont());
-    const target = storedIdx === -1 ? DEFAULT_INDEX : storedIdx;
+    const activeIdx = FONTS.indexOf(sessionFont());
+    const target = activeIdx === -1 ? DEFAULT_INDEX : activeIdx;
 
     let introPlayed = true;
     try {
@@ -160,7 +161,7 @@ export default function Hero() {
     }
 
     // Unlock the theme effect only now, so the first applyTheme it runs (once
-    // the reel settles, or immediately if static) paints the stored theme —
+    // the reel settles, or immediately if static) paints the active theme —
     // never the transient default while spinning.
     setSynced(true);
 
