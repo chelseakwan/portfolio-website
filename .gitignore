@@ -1,4 +1,15 @@
 .DS_Store
 *.log
+
+# dependencies
 node_modules/
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# misc
 .thumbnail
+.env*.local
+.vercel
