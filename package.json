@@ -1,15 +1,17 @@
 {
-  "name": "portfolio-website",
+  "name": "chelsea-kwan-portfolio",
   "version": "1.0.0",
-  "description": "Chelsea Kwan — portfolio website. Static HTML/CSS/JS served from site/.",
+  "description": "Chelsea Kwan — personal portfolio website. Next.js (App Router, JavaScript).",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "vite site",
-    "build": "vite build site",
-    "preview": "vite preview site"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "devDependencies": {
-    "vite": "^6.0.0"
+  "dependencies": {
+    "next": "15.5.19",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
   }
 }

@@ -1,0 +1,501 @@
+/* ============================================================
+   Design system — extracted from the provided baseline (PRD §3).
+   Color/typography/spacing tokens are binding.
+   ============================================================ */
+
+:root {
+  /* Color tokens (PRD §3.1) */
+  --bg: #f1ead8;            /* warm cream / paper */
+  --fg: #161310;            /* near-black ink */
+  --line: rgba(22, 19, 16, 0.16); /* hairline, fg @ 16% */
+
+  /* Type tokens (PRD §3.2). Courier New is a system monospace. */
+  --mono: "Courier New", ui-monospace, monospace;
+  /* --serif (secondary display elements) and --title-font (page headings) both
+     follow the active hero theme; they are overwritten site-wide by
+     applyTheme() / the boot script. These defaults match the default cream
+     theme (Courier New) so a cold deep-link to a sub-page doesn't flash Rozha. */
+  --serif: "Courier New", ui-monospace, monospace, "Arial Black", serif;
+  --title-font: "Courier New", ui-monospace, monospace, "Arial Black", serif;
+  --title-gap: 0;
+  /* Per-font heading scale. Most display faces sit on the same cap height, but
+     Aston Script's tall ascender loops rise above it and collide with the
+     eyebrow above a page heading — so that font scales the heading down (see
+     html[data-font="Aston"] below). applyTheme()/the boot script set data-font
+     on <html>. */
+  --title-scale: 1;
+
+  /* Layout */
+  --maxw: 1060px;
+  --nav-h: 62px;
+
+  /* z-index scale */
+  --z-nav: 50;
+  --z-mobile-menu: 60;
+}
+
+* { box-sizing: border-box; }
+
+/* Site-wide smooth cross-fade for theme swaps (PRD §3.3 / §4.1). */
+* {
+  transition: background-color 0.45s ease, color 0.45s ease,
+    border-color 0.45s ease;
+}
+
+html { scroll-behavior: smooth; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+body {
+  font-family: var(--mono);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; }
+
+/* Respect reduced motion (PRD §4.4 / §6.2). */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+
+/* Accessibility: skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+/* ---------------- NAV (PRD §2.2) ---------------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+  padding-left: 34px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.nav__brand {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  color: var(--fg);
+  text-decoration: none;
+}
+.nav__brand:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 4px;
+}
+.nav__tabs {
+  display: flex;
+  align-items: stretch;
+  align-self: stretch;
+  border-left: 1px solid var(--line);
+}
+.tab {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border-left: 1px solid var(--line);
+  text-decoration: none;
+  cursor: pointer;
+}
+/* Ink panel slides up from below on hover — a background reveal only; the
+   label itself never moves (PRD §2.2). */
+.tab__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  transform: translateY(101%);
+  transition: transform 0.46s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.tab:hover .tab__fill,
+.tab:focus-visible .tab__fill { transform: translateY(0); }
+/* Label stays centered in the box at all times; only its color flips so it
+   stays legible as the ink fill rises behind it. */
+.tab__label {
+  position: relative;
+  z-index: 1;
+  padding: 0 26px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--fg);
+  transition: color 0.46s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.tab:hover .tab__label,
+.tab:focus-visible .tab__label { color: var(--bg); }
+.tab:focus-visible { outline: 2px solid var(--fg); outline-offset: -2px; }
+
+/* Active route: permanently inverted (ink panel, cream label) (PRD §2.2). */
+.tab[aria-current="page"] .tab__fill { transform: translateY(0); }
+.tab[aria-current="page"] .tab__label { color: var(--bg); }
+
+/* Mobile nav (PRD §2.2 / §6.1) — hidden until <=640px */
+.nav__toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 62px;
+  background: none;
+  border: none;
+  border-left: 1px solid var(--line);
+  cursor: pointer;
+  color: var(--fg);
+}
+.nav__toggle:focus-visible { outline: 2px solid var(--fg); outline-offset: -2px; }
+.nav__toggle svg { display: block; }
+.nav__mobile {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+  z-index: var(--z-mobile-menu);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  display: none;
+  flex-direction: column;
+}
+.nav__mobile.is-open { display: flex; }
+.nav__mobile-link {
+  padding: 18px 24px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--fg);
+  border-top: 1px solid var(--line);
+}
+.nav__mobile-link:first-child { border-top: none; }
+.nav__mobile-link[aria-current="page"] {
+  background: var(--fg);
+  color: var(--bg);
+}
+.nav__mobile-link:focus-visible { outline: 2px solid var(--fg); outline-offset: -2px; }
+
+/* ---------------- HERO (PRD §5.1) ---------------- */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 34vh;
+  overflow: hidden;
+}
+.hero__name {
+  color: var(--fg);
+  height: clamp(150px, 24vh, 240px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--title-gap);
+}
+.hero__wordmark {
+  font-size: clamp(48px, 8.1vw, 128px);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  padding: 0 32px;
+  cursor: pointer;
+  user-select: none;
+  background: none;
+  border: none;
+  color: inherit;
+  line-height: 1;
+}
+.hero__wordmark:focus-visible { outline: 2px solid var(--fg); outline-offset: 8px; }
+.hero__wordmark .ltr { display: inline-block; }
+.hero__wordmark .spc { display: inline-block; width: 0.34em; }
+.hero__subtitle {
+  margin-top: 24px;
+  font-family: var(--mono);
+  font-size: clamp(13px, 1.5vw, 20px);
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-align: center;
+  padding: 0 24px;
+}
+.hero__cta {
+  position: absolute;
+  bottom: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  z-index: 6;
+}
+
+/* ---------------- BUTTONS ---------------- */
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 11px 22px;
+  text-decoration: none;
+  border: none;
+}
+.btn--solid { background: var(--fg); color: var(--bg); }
+.btn--solid:hover { opacity: 0.85; }
+.btn--solid:disabled { opacity: 0.4; cursor: default; }
+.btn--ghost {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--fg);
+}
+.btn--ghost:hover { background: var(--fg); color: var(--bg); }
+.btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+/* ---------------- PAGE / SECTION LAYOUT (PRD §3.3) ---------------- */
+.page {
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 100dvh;
+  padding: calc(var(--nav-h) + 70px) 7vw 110px;
+  border-top: 1px solid var(--line);
+}
+.wrap { max-width: var(--maxw); margin: 0 auto; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin: 0 0 16px;
+}
+.h2 {
+  font-family: var(--title-font);
+  font-weight: 400;
+  font-size: calc(clamp(40px, 6vw, 82px) * var(--title-scale));
+  line-height: 0.98;
+  margin: 0 0 40px;
+}
+/* Aston Script runs tall and connected; shrink the heading and give its
+   ascender loops headroom so they clear the eyebrow kicker above. */
+html[data-font="Aston"] {
+  --title-scale: 0.74;
+}
+html[data-font="Aston"] .h2 {
+  margin-top: 0.6em;
+}
+
+/* Themed connector in the About heading: the dot-matrix "Dotfont" theme renders
+   "Math, markets + data." while every other theme keeps the "&" ampersand. Both
+   glyphs are decorative (aria-hidden); a visually-hidden "and" keeps the heading
+   read correctly by screen readers in either theme. */
+.amp--plus { display: none; }
+html[data-font="Dotfont"] .amp--and { display: none; }
+html[data-font="Dotfont"] .amp--plus { display: inline; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.lead {
+  font-family: var(--mono);
+  font-size: clamp(16px, 1.9vw, 21px);
+  line-height: 1.65;
+  max-width: 760px;
+  margin: 0 0 72px;
+}
+
+/* Two-column row (PRD §3.3 / §6.1) */
+.row {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 48px;
+  padding: 36px 0;
+  border-top: 1px solid var(--line);
+}
+.row__label {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.row__body { font-family: var(--mono); font-size: 14px; line-height: 1.7; }
+.row__note { margin-top: 8px; opacity: 0.75; }
+.row__detail { margin-top: 14px; }
+.row__meta { margin-top: 18px; font-size: 13px; opacity: 0.7; letter-spacing: 0.04em; }
+.stack { display: grid; gap: 16px; }
+.serif-lg { font-family: var(--serif); font-size: 26px; line-height: 1.15; }
+.meta-role {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 12px;
+  opacity: 0.72;
+}
+.meta-place {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 8px;
+  opacity: 0.5;
+}
+.sub {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 5px;
+}
+
+/* Em-dash bullets */
+.bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.bullets li { display: flex; gap: 14px; margin-bottom: 10px; }
+.bullets .dash { opacity: 0.4; }
+
+/* ---------------- PROJECTS (PRD §5.3) ---------------- */
+.proj-head {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin: 72px 0 28px;
+}
+.projects { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+.project { border-top: 2px solid var(--fg); padding-top: 22px; }
+.project__title { font-family: var(--serif); font-size: 23px; line-height: 1.15; }
+.project__meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-top: 10px;
+  opacity: 0.55;
+}
+.project .bullets { font-size: 13.5px; line-height: 1.6; margin-top: 18px; }
+.project .bullets li { gap: 12px; margin-bottom: 9px; }
+
+/* ---------------- CONTACT (PRD §5.4) ---------------- */
+.contact-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--fg);
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 34px);
+}
+.contact-link:hover { opacity: 0.6; }
+.contact-link:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
+.contact-link:last-of-type,
+.contact-link--static { border-bottom: 1px solid var(--line); }
+.contact-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* ---------------- RESUME (PRD §5.5) ---------------- */
+.resume-lead {
+  font-family: var(--mono);
+  font-size: clamp(15px, 1.8vw, 19px);
+  line-height: 1.65;
+  max-width: 640px;
+  margin: 0 0 16px;
+  opacity: 0.85;
+}
+.resume-updated {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin: 0 0 48px;
+}
+.btn--download {
+  display: inline-flex;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 16px 30px;
+  font-size: 12px;
+}
+.btn--download:hover { opacity: 0.85; }
+
+/* ---------------- RESPONSIVE (PRD §6.1) ---------------- */
+
+/* Nav collapses to a mobile pattern below 640px. */
+@media (max-width: 640px) {
+  .nav { padding-left: 20px; }
+  .nav__tabs { display: none; }
+  .nav__toggle { display: flex; }
+}
+
+/* Two-column rows + project grid collapse below 720px. */
+@media (max-width: 720px) {
+  .page { padding: calc(var(--nav-h) + 36px) 24px 72px; }
+  .h2 { margin-bottom: 32px; }
+  .row { grid-template-columns: 1fr; gap: 18px; padding: 28px 0; }
+  .projects { grid-template-columns: 1fr; gap: 28px; }
+  .lead { margin-bottom: 48px; }
+  .hero { padding-top: 30vh; }
+  .contact-link { font-size: clamp(18px, 6vw, 26px); }
+  .contact-tag { display: none; }
+  .proj-head { margin-top: 56px; }
+}
