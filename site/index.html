@@ -548,7 +548,12 @@
   })();
 
   // ----- Boot -----
-  commit();
+  // Load in on the default cream / black Courier New typewriter theme (the CSS :root
+  // values). We deliberately DON'T commit() first: at boot step=0 is 'Aston', and a
+  // commit() here would call applyTheme() while running is still false — painting the
+  // Aston navy theme over the cream :root and leaving it up for the whole intro reel.
+  // startAnim() renders the wordmark itself and keeps running=true (which blocks
+  // applyTheme), so the page stays cream throughout the spin and settles on Courier New.
   startAnim(8, 4); // mount animation, same as the prototype's componentDidMount
 })();
 </script>
