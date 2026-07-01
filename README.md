@@ -2,7 +2,7 @@
 
 Personal portfolio website. Built with **Next.js** (App Router, JavaScript) —
 a cream-and-ink, typewriter/editorial aesthetic centered on a signature
-animated hero. Statically generated and deployable to Vercel. Currently hosted on [chelseakwan.com] - feel free to take a look!
+animated hero. Statically generated and deployable to Vercel. Currently hosted on ([chelseakwan.com]) - feel free to take a look!
 
 ## Run locally
 
