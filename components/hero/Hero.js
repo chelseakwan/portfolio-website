@@ -4,13 +4,17 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import profile from "@/content/profile";
 import { FONTS, FONT_FAMILY, DEFAULT_INDEX } from "@/components/hero/themes";
-import { applyTheme, readStoredFont } from "@/lib/theme";
+import { applyTheme, sessionFont } from "@/lib/theme";
 
 const NAME = "Chelsea Kwan";
 const TICK_MS = 77; // advance one font roughly every 77ms (PRD §4.1)
-const ENTRANCE_CYCLES = 4; // full loops on entrance / replay
+const ENTRANCE_CYCLES = 3; // full loops on entrance / replay
 const SHUFFLE_CYCLES = 2; // loops on double-click shuffle
 const CLICK_DELAY_MS = 220; // single- vs double-click disambiguation
+// Session flag: the entrance reel plays only on the visitor's FIRST landing on
+// the home page this session. Returning home (CK. logo, in-session reloads)
+// lands statically so the wordmark doesn't reshuffle every time.
+const INTRO_KEY = "ck:hero-intro-played";
 
 const mod = (n, m) => ((n % m) + m) % m;
 
@@ -54,16 +58,16 @@ export default function Hero() {
       font === "Aston" ? "0.85em" : "0"
     );
     // Do nothing to the page theme until the mount effect has synced `step` to
-    // the visitor's stored font. Until then `step` is still DEFAULT_INDEX
-    // (Courier) while THEME_BOOT_SCRIPT has ALREADY restored the last-settled
-    // theme on <html>; calling applyTheme now would clobber that back to the
-    // cream/black default AND overwrite the stored font in localStorage.
+    // the font active this session. Until then `step` is still DEFAULT_INDEX
+    // (Courier); on a fresh load that's already the cream default, but after
+    // in-app navigation the session may hold a different font, so we wait to
+    // avoid flashing cream before re-applying the active theme.
     //
     // This guard is intentionally driven by STATE (`synced`), not a ref. React
     // StrictMode double-invokes effects on mount (setup → cleanup → setup), and
     // a ref's mutation persists across that double-invoke — so a ref-based
     // "first run" guard lets the second setup fall through and apply the default
-    // theme (which then gets read back as the stored font, settling the whole
+    // theme (which then gets read back as the active font, settling the whole
     // site on cream/black for good). `synced` only flips true on a committed
     // render, so every StrictMode re-run before the sync correctly skips, and
     // applyTheme never fires for the transient default step.
@@ -133,21 +137,46 @@ export default function Hero() {
     [onNameClick]
   );
 
-  // Mount: detect reduced motion and land STATICALLY on whatever font/theme
-  // the visitor last settled on — no entrance spin. Returning home via the
-  // "CK." logo no longer reshuffles the wordmark; the page renders in the
-  // theme that was already there. Manual controls still animate on demand:
-  // click advances a font, double-click shuffles, and Replay re-spins.
+  // Mount: detect reduced motion, then either play the entrance reel (first
+  // landing this session) or land STATICALLY on the font active this session.
+  // On a fresh load that's the cream default; after in-app navigation it's
+  // whatever the visitor last cycled to, so the active theme is preserved.
+  // Returning home via the "CK." logo no longer reshuffles the wordmark once
+  // the intro has played.
+  // Manual controls still animate on demand: click advances a font,
+  // double-click shuffles, and Replay re-spins.
   // On unmount, clear timers and reset only the hero-specific vertical gap.
   useEffect(() => {
     reducedRef.current = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const storedIdx = FONTS.indexOf(readStoredFont());
-    setStep(storedIdx === -1 ? DEFAULT_INDEX : storedIdx);
-    // Unlock the theme effect only now that `step` reflects the stored font, so
-    // the first applyTheme it runs paints the correct theme — never the default.
+    const activeIdx = FONTS.indexOf(sessionFont());
+    const target = activeIdx === -1 ? DEFAULT_INDEX : activeIdx;
+
+    let introPlayed = true;
+    try {
+      introPlayed = sessionStorage.getItem(INTRO_KEY) === "1";
+    } catch {
+      /* storage blocked — treat as already played, land static */
+    }
+
+    // Unlock the theme effect only now, so the first applyTheme it runs (once
+    // the reel settles, or immediately if static) paints the active theme —
+    // never the transient default while spinning.
     setSynced(true);
+
+    if (!introPlayed) {
+      try {
+        sessionStorage.setItem(INTRO_KEY, "1");
+      } catch {
+        /* ignore */
+      }
+      // Spin the reel 3× and settle on the stored font (PRD §4.1). Honors
+      // reduced motion internally by jumping straight to the target.
+      startAnim(target, ENTRANCE_CYCLES);
+    } else {
+      setStep(target);
+    }
 
     return () => {
       clearInterval_();
@@ -161,7 +190,7 @@ export default function Hero() {
       // other route consumes.
       document.documentElement.style.setProperty("--title-gap", "0");
     };
-  }, [clearInterval_]);
+  }, [clearInterval_, startAnim]);
 
   const currentFont = FONTS[mod(step, FONTS.length)];
   const fontFamily = `${FONT_FAMILY[currentFont]}, "Arial Black", sans-serif`;

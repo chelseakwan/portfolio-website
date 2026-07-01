@@ -13,16 +13,15 @@
   --mono: "Courier New", ui-monospace, monospace;
   /* --serif (secondary display elements) and --title-font (page headings) both
      follow the active hero theme; they are overwritten site-wide by
-     applyTheme() / the boot script. These defaults match the default cream
-     theme (Courier New) so a cold deep-link to a sub-page doesn't flash Rozha. */
+     applyTheme(). These defaults match the default cream theme (Courier New),
+     which is also where every fresh page load (reload / new tab) starts. */
   --serif: "Courier New", ui-monospace, monospace, "Arial Black", serif;
   --title-font: "Courier New", ui-monospace, monospace, "Arial Black", serif;
   --title-gap: 0;
   /* Per-font heading scale. Most display faces sit on the same cap height, but
      Aston Script's tall ascender loops rise above it and collide with the
      eyebrow above a page heading — so that font scales the heading down (see
-     html[data-font="Aston"] below). applyTheme()/the boot script set data-font
-     on <html>. */
+     html[data-font="Aston"] below). applyTheme() sets data-font on <html>. */
   --title-scale: 1;
 
   /* Layout */
