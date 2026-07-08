@@ -1,0 +1,141 @@
+CHELSEA KWAN — PORTFOLIO
+Copy Text
+========================
+
+NAV
+---
+CK.   (monogram)
+About · Work · Contact · Résumé · Coffee Corner
+
+
+HERO
+----
+Chelsea Kwan
+Math and Business @ Northeastern University
+
+Buttons: ▶ Replay  |  Learn more
+Title tooltip: "Click to change font · double-click to shuffle"
+
+
+01 — ABOUT
+----------
+Heading: Math, markets & data.
+
+Intro:
+I'm a Mathematics & Business Administration student at Northeastern concentrating
+in Fintech — working across strategic finance, data engineering, and quantitative
+research to turn messy data into decisions.
+
+Education
+  Northeastern University
+  D'Amore-McKim School of Business · Boston, MA
+  Candidate, BS in Mathematics & Business Administration — May 2028
+  Concentration: Fintech · Minor: Data Science · GPA: 3.9
+  Awards & Activities: Honors Program, Dean's List, Disrupt Consulting, Generate,
+    Association of Women in Mathematics
+  Relevant Courses: Probability & Statistics, Stochastic Processes, Differential
+    Equations, Linear Algebra, Mathematical Modeling, Asset Valuation, Financial
+    Econometrics
+
+Technical Skills
+  Programming & Query: Python, SQL, Cypher
+  Frameworks & Libraries: Sklearn, NumPy, Pandas, Seaborn, FastAPI, Matplotlib
+  Tools: Git, Docker, Tableau, Snowflake, Coefficient, PowerPoint, Excel
+  Databases: PostgreSQL/pgvector, Neo4j, Kuzu
+
+Beyond Work
+  Interests: Jazz & Classical Music, Formula 1, Pottery, Guitar, Reading, Baking,
+    Traveling
+  Languages: English (Native), Mandarin (Working Proficiency)
+
+
+02 — EXPERIENCE
+---------------
+Heading: Where I've worked.
+
+Pericles Capital — Incoming Quantitative Analyst
+Boston, MA · Sep 2026
+  — Joining a systematic research team to study how data-center buildout affects
+    commodity and equity prices.
+
+Klaviyo Inc. — Strategic Finance Analyst Co-op
+Boston, MA · Jan 2026 – Present
+  — Led negotiations across marketing, GTM, R&D, and G&A branches on $300K+ deals
+    for key company stakeholders.
+  — Partnered with FP&A, BI, and Security & Risk stakeholders to improve and
+    streamline vendor onboarding by 40%.
+  — Transformed $20M in R&D and IT spend data to develop a comprehensive category
+    strategy alongside Senior VPs.
+  — Analyzed $5B+ in contracts via SQL to prioritize sourcing and drive spend
+    efficiency across all cost centers.
+  — Built a savings process to quantify impact — captured $374K in savings and
+    $5.4M in cost avoidance.
+  — Designed and implemented 6+ procurement automations to reduce manual overhead
+    and accelerate decision-making.
+
+Cortex — Data Engineer
+Boston, MA · Jan 2026 – Present
+  — Executed an end-to-end data engineering pipeline designed to scale to 100+
+    documents across multiple file formats.
+  — Transformed unstructured data to a standardized format for relationship
+    extraction and knowledge graph construction.
+  — Designed an AI-accessible graph database leveraging context engineering and
+    Python to improve data discoverability.
+  — Built pipelines parsing PDFs & CSVs into structured JSON stored across Neo4j,
+    S3 & Supabase PostgreSQL.
+  — Reduced retrieval overhead by 60% by improving model responses with
+    natural-language knowledge graph search.
+
+Disrupt FinTech Consulting — Director of Consulting & Strategy Lead
+Boston, MA · May 2025 – Present
+  — Directed and mentored 24+ consultants and developers across 5 strategic and
+    technical client consulting projects.
+  — Drove client acquisition by conducting fintech market research, reaching out
+    to 100+ fintech startup founders.
+  — Converted leads into partnerships through strategic outreach, directing key
+    stakeholder meetings and scoping projects.
+  — Guided client deliverables and presented project outcomes to an audience of
+    80+ students and stakeholders.
+  — Led recruitment and growth strategy — expanded the consultant pipeline by 70%
+    and scaled the org by 300%.
+
+PROJECTS
+
+Markowitz & SIM Stock Analysis
+Excel, Data Analysis ToolPak · Dec 2025
+  — Computed Sharpe Ratios, CAPM regressions, and betas on daily and monthly
+    frequencies.
+  — Built portfolios using Markowitz Mean-Variance Optimization and the Single
+    Index Model.
+  — Constructed the efficient frontier and solved for the max-Sharpe tangency
+    portfolio over a 5-asset universe.
+
+Abalone Predictive Modeling
+Python, Sklearn, Pandas · Nov 2025
+  — Developed a linear regression model and KNN classifier to predict age on a
+    4,177-sample dataset.
+  — Standardized features and encoded the categorical sex variable for
+    distance-based KNN modeling.
+  — Visualized performance via annotated heatmaps, regression scatter plots, and
+    confusion matrices.
+
+
+03 — CONTACT
+------------
+Heading: Let's talk.
+
+  kwan.che@northeastern.edu          (Email)
+  linkedin.com/in/chelseagkwan        (LinkedIn)
+  Boston, MA                          (Location)
+
+
+04 — RÉSUMÉ
+-----------
+Heading: The full resume.
+One page. Education, experience, projects, and skills — download the PDF.
+Button: ↓ Download PDF
+
+
+COFFEE CORNER
+-------------
+Hand-drawn hanging sign: Open Soon!
