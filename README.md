@@ -85,6 +85,10 @@ theme, still allows manual changes). Lives entirely in
 
 ## Design source
 
-The original design prototype lives in `Chelsea KwanWebsite v3/` (a
-`dc-runtime` HTML/JS package) and is the binding visual/content baseline. It is
-not directly deployable; this Next.js app is the production implementation.
+All design specs live under [`Website Designs/`](Website%20Designs) — versioned
+snapshots of the intended look (copy, fonts, screenshots, notes). The highest
+version is the latest intent. The original prototype (`Chelsea KwanWebsite v3/`,
+a `dc-runtime` HTML/JS package) is the binding visual/content baseline; later
+folders (e.g. `Chelsea Kwan — Design Spec - v4/`) refine it. None are directly
+deployable — this Next.js app is the production implementation. See
+[`CLAUDE.md`](CLAUDE.md) for how specs flow into the site.
