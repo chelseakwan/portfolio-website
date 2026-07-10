@@ -477,6 +477,55 @@ html[data-font="Dotfont"] .amp--plus { display: inline; }
 }
 .btn--download:hover { opacity: 0.85; }
 
+/* ---------------- COFFEE CORNER (v4 spec) ---------------- */
+/* An empty "room" pinned below the nav, with the hand-drawn sign centered and
+   swinging on entry like a shop door. Fixed so the sign hangs against a blank
+   frame regardless of scroll. */
+.coffee {
+  position: fixed;
+  inset: var(--nav-h) 0 0 0;
+  z-index: 1;
+  background: var(--bg);
+  color: var(--fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.coffee__sign {
+  width: min(560px, 82vw);
+  height: auto;
+  /* Pivot at the string ring near the top of the viewBox. */
+  transform-origin: 50% 8%;
+  /* Reads as already in motion: starts at full displacement and settles over
+     11 equal-period passes with decaying amplitude (13deg -> 0), 3.91s total. */
+  transform: rotate(13deg);
+  animation: coffee-swing 3.91s ease-in-out forwards;
+}
+
+/* 11 passes across 3.91s (~9.09% each), amplitude decaying linearly 13 -> 0,
+   alternating direction, each segment eased for a natural pendulum. */
+@keyframes coffee-swing {
+  0%    { transform: rotate(13deg); }
+  9.09% { transform: rotate(-11.8deg); }
+  18.18%{ transform: rotate(10.6deg); }
+  27.27%{ transform: rotate(-9.5deg); }
+  36.36%{ transform: rotate(8.4deg); }
+  45.45%{ transform: rotate(-7.1deg); }
+  54.54%{ transform: rotate(5.9deg); }
+  63.63%{ transform: rotate(-4.7deg); }
+  72.72%{ transform: rotate(3.5deg); }
+  81.81%{ transform: rotate(-2.4deg); }
+  90.90%{ transform: rotate(1.2deg); }
+  100%  { transform: rotate(0deg); }
+}
+
+/* Reduced motion: render the sign hanging straight and still (the global motion
+   reset already disables the animation; this pins the resting angle). */
+@media (prefers-reduced-motion: reduce) {
+  .coffee__sign { transform: rotate(0deg); }
+}
+
 /* ---------------- RESPONSIVE (PRD §6.1) ---------------- */
 
 /* Nav collapses to a mobile pattern below 640px. */
