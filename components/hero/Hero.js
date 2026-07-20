@@ -226,7 +226,7 @@ export default function Hero() {
       <p className="hero__subtitle">{profile.tagline}</p>
 
       <p className="hero__hint">
-        one click to switch theme, two clicks to randomize
+        one click to switch theme. two clicks to randomize.
       </p>
 
       <div className="hero__cta">
